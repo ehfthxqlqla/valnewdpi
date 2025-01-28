@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DPI를 바꾸면..?</title>
+</head>
+<body>
+    <span>니 dpi 입력</span>
+    <input type="text" class="dpi" onkeyup="setDPI(this)">
+    <br>
+    <span>니 발로 감도 입력</span>
+    <input type="text" class="sens" onkeyup="setSENS(this)">
+    <br>
+    <span>새로쓰고 싶은 dpi 입력</span>
+    <input type="text" class="sens" onkeyup="setNEWDPI(this)">
+
+    <br>
+    <br>
+    <span>결과 싸질러줌</span>
+    <input type="text" disabled class="result">
+
+    <script>
+        let userDPI = null;
+        let userSENS = null;
+        let userNEWDPI = null;
+
+        function setDPI(dpi) { 
+            userDPI = dpi.value
+            calculateEDPI()
+        }
+        function setSENS(sens) { 
+            userSENS = sens.value
+            calculateEDPI()
+        }
+        function setNEWDPI(newdpi) { 
+            userNEWDPI = newdpi.value
+            calculateEDPI()
+        }
+
+        // eDPI 계산 함수 및 새로운 감도 계산 함수
+        function calculateEDPI() {
+            if (!(userDPI && userSENS && userNEWDPI)) { return }
+
+            const edpi = userDPI * userSENS
+            
+            const result = calculateNewSensitivity(edpi, userNEWDPI)
+
+            document.querySelector(".result").value = result
+        }
+
+        function calculateNewSensitivity(initialEDPI, newDPI) { return initialEDPI / newDPI; }
+    </script>
+</body>
+</html>
